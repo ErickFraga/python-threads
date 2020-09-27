@@ -1,0 +1,2 @@
+Thrabalho para a disciplina: Programação Distribuída e Concorrente
+Foi utilizado a principal pacote para trabalhar com threads em python: threading utilizando os metodos da biblíoteca: threading.Condition()

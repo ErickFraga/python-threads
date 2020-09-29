@@ -85,23 +85,12 @@ class ThreadTipo(threading.Thread):
       time.sleep(self.tempoVerificacao)
 
   #Foi um metodo que criei para tentar para o fluxo após um periodo, mas deu ceto n :(
-  def finalizar(self):
-    if(self.tipoThread == 'P' and self.stop): 
-      condicao.acquire() 
-      condicao.notifyAll()
-      condicao.release()
-      return True
-    else:
-      return False
+
 
   #Metodo Principal
   def run(self):
-    while( not self.finalizar()):
+    while(True):
       self.taskSaque(condicao)
       self.taskDeposito()
 
-    if(self.tipoThread == 'P' and self.stop):
-      print('Thread: [%s] já realizou %d depositos' % (self.nome, self.qtdSaqueOuDeposito ) )
-
     
-

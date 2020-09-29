@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+import threading 
 from threadTipo import ThreadTipo
 from conta import Conta
 
+
+semaforo = threading.Semaphore(4)
 
 # C = thread AGastadora
 # C = thread AEconomica
@@ -9,7 +12,7 @@ from conta import Conta
 # P = thread APatrocinadora
 
 print("FUNCIONAMENTO DA CONTA BANCÁRIA\n")
-contaCompartilhada = Conta(123,'Ribamar Pedreiro',1000.00)
+contaCompartilhada = Conta(123,'Ribamar Pedreiro',100.00)
 
 print( contaCompartilhada.toString() )
 
@@ -18,10 +21,21 @@ AEsperta = ThreadTipo("AEsperta",50,6,'C',contaCompartilhada)
 AEconomica = ThreadTipo("AEconomica",5,12,'C',contaCompartilhada)
 APatrocinadora = ThreadTipo("APatrocinadora",500,2,'P',contaCompartilhada)
 
-AGastadora.start();
-AEsperta.start();
-AEconomica.start();
-APatrocinadora.start();
+threads =[] 
+threads.append(AGastadora)
+threads.append(AEsperta)
+threads.append(AEconomica)
+threads.append(APatrocinadora)
+
+for i in threads:
+  semaforo.acquire()
+  i.start()
+  
+semaforo.release()
+#AGastadora.start();
+#AEsperta.start();
+#AEconomica.start();
+#APatrocinadora.start();
 
 # metodo join() aguarda a thread finalizar para voltar ao código principal
 AGastadora.join(); 

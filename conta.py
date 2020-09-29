@@ -1,4 +1,4 @@
-import threading # para poder usar o lock
+import threading 
 
 # Descrição dos atributos da classe conta
 # numero => número identificado da conta
@@ -55,10 +55,7 @@ class Conta():
     if(self.saldo >= quantia and tTipo == 'C'):
       return True
     elif tTipo == 'C':
-      print('\n')
-      print("Thread: [" +tNome+"] impossibilitada de sacar: "+str(quantia)+ "R$, Erro: saldo insuficiente na conta: "+str(self.numero)+" saldo Atual: "+str( self.saldo)+"R$" )
       #self.nrThreadWait += 1
-
       # Determina se é hora de depositar novamente na conta 'depositTime'
       # Como são 3 threads caso elas entrem em espera, significa que também é hora de depositar
       if self.getSaldo() == 0 or self.getNrThreadWait() == 3:

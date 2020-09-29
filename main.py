@@ -12,7 +12,7 @@ semaforo = threading.Semaphore(4)
 # P = thread APatrocinadora
 
 print("FUNCIONAMENTO DA CONTA BANCÁRIA\n")
-contaCompartilhada = Conta(123,'Ribamar Pedreiro',100.00)
+contaCompartilhada = Conta(123,'Ribamar Pedreiro',1000.00)
 
 print( contaCompartilhada.toString() )
 

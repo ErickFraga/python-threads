@@ -29,7 +29,7 @@ class Conta():
 
   def getSaldo(self):
     return self.saldo
-  #Metodo que realiza a ação de depósito
+  # Método que realiza a ação de depósito
   def deposito(self,quantia, tNome):
     self.saldo += quantia
     print("Thread: ["+tNome+"] Depositou: "+str(quantia)+" R$ Saldo restante: "+str(self.saldo)+"R$")
@@ -45,19 +45,18 @@ class Conta():
 
   def toString(self):
     return 'Conta: '+str(self.numero)+' Saldo disponível: '+str(self.saldo)+' R$ Proprietário(a): Sr(a) '+self.titular
-  #Metodo para atualiza a situação de depósito
+  # Método para atualiza a situação de depósito
   def atzSitDeposito(self):
     if self.getSaldo() == 0 or self.getNrThreadWait() == 3:
       self.setDepositTime(True)
 
-  #Verifica a possibilidade de efetuar um saque
+  # Verifica a possibilidade de efetuar um saque
   def disponivel(self,quantia,tNome,tTipo):
     if(self.saldo >= quantia and tTipo == 'C'):
       return True
     elif tTipo == 'C':
-      #self.nrThreadWait += 1
       # Determina se é hora de depositar novamente na conta 'depositTime'
-      # Como são 3 threads caso elas entrem em espera, significa que também é hora de depositar
+      # Como são 3 threads do tipo 'C' caso elas entrem em espera, significa que também é hora de depositar
       if self.getSaldo() == 0 or self.getNrThreadWait() == 3:
         self.setDepositTime(True)
         

@@ -1,8 +1,6 @@
 import threading
-#from threading import Thread
 from conta import Conta
 import time
-#threadLock = threading.Lock()
 
 #Importa o mecanimos para sincronizar todas as threads de foma individual ou simultaneamente
 condicao = threading.Condition()
@@ -24,9 +22,8 @@ class ThreadTipo(threading.Thread):
     self.qtdSaqueOuDeposito = 0
     print('Thread: ['+self.nome+'] criada')
     threading.Thread.__init__(self)
-    #self.threadEvent = threading.Event()
 
-  #Metodo para exibir o relátorio de uma thread
+  # Método para exibir o relátorio de uma thread
   def threadReport(self):
     print('\n')
     print('=================== Relatório de saque da Thread: ['+self.nome+'] ===================')
@@ -39,19 +36,17 @@ class ThreadTipo(threading.Thread):
     print('=================== Fim do Relatório da Thread: [%s]  ==================='% self.nome)
     print('\n')
 
-  #Metodo que realiza o depósito em uma conta
+  # Método que realiza o depósito em uma conta
   def depositar(self,condicao):
       condicao.acquire() 
       print('Thread: [%s] Hora do deposito' % self.nome )
-      #if( self.qtdSaqueOuDeposito < deposito ):
       self.qtdSaqueOuDeposito += self.conta.deposito(self.valorConta,self.nome)
       condicao.notifyAll()
       condicao.release()
 
-  #Medotdo que define o fluxo da atividade de realizar saque  
+  # Método que define o fluxo da atividade de realizar saque  
   def taskSaque(self,condicao):
     # Valida se a conta está disponível para saques
-
     while( self.conta.getSaldo() > 0 and self.conta.disponivel(self.valorConta,self.nome, self.tipoThread) ):
       time.sleep(self.tempoVerificacao)
       condicao.acquire()
@@ -72,20 +67,17 @@ class ThreadTipo(threading.Thread):
       condicao.wait()
     condicao.release()
 
-  #Metodo que define o fluxo da atividade de realizar deposito   
+  # Método que define o fluxo da atividade de realizar deposito   
   def taskDeposito(self):
     if(self.tipoThread == 'P'):
-      #Atuliza  a situação de deposito
+      # Atualiza  a situação de deposito
       time.sleep(self.tempoVerificacao)
       self.conta.atzSitDeposito()
-      #print('Thread: [%s] verificando a situacao da conta para depositar:[%s]' % (self.nome, str(self.conta.getDepositTime()) ) )
+
       if(self.conta.getDepositTime()):
         self.depositar(condicao)
 
-  #Foi um metodo que criei para tentar para o fluxo após um periodo, mas deu ceto n :(
-
-
-  #Metodo Principal
+  # Método Principal que é chamda pelo start()
   def run(self):
     while(True):
       self.taskSaque(condicao)
